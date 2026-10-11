@@ -21,10 +21,10 @@ URL and uses Supervisor discovery to auto-fill it on the add-on path.
 
 **One click** — add this repository to your Home Assistant:
 
-[![Open your Home Assistant instance and show the add-on store with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_store.svg)](https://my.home-assistant.io/redirect/supervisor_store/?repository_url=https%3A%2F%2Fgithub.com%2Fmega-yfue%2Fha-eufy-sdk-addon)
+[![Open your Home Assistant instance and show the add-on store with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_store.svg)](https://my.home-assistant.io/redirect/supervisor_store/?repository_url=https%3A%2F%2Fgithub.com%2FTralla%2Fcustombuild-ha-eufy-sdk-addon)
 
 Or manually: **Settings → Add-ons → Add-on Store → ⋮ → Repositories**, add
-`https://github.com/mega-yfue/ha-eufy-sdk-addon`, then install **eufy-sdk bridge**.
+`https://github.com/Tralla/custombuild-ha-eufy-sdk-addon`, then install **eufy-sdk bridge**.
 
 After install, set your `email` / `password` / `country` in the add-on **Configuration** tab and start
 it. On first login eufy may ask for **2FA or a captcha** — resolve it from the
