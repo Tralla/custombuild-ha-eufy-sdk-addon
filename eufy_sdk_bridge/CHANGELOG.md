@@ -1,5 +1,54 @@
 # Changelog
 
+## 0.7.0
+
+- Built on **bridge 0.6.0** (still eufy-sdk 0.4.0). For the add-on, this means:
+  - **HomeBase S1 Pro (T9000) can start its WebRTC connection.** The image now ships `node-datachannel`,
+    prebuilt for amd64 and arm64 (Raspberry Pi). Some accounts still hit an RTC sign refusal (HTTP 401)
+    first; that's an SDK fix in progress.
+  - **No more auth tokens in logs or error messages**: a token eufy echoes back is redacted.
+  - **Battery cameras stop draining from Home Assistant's stream worker** together with **integration
+    0.6.0**: the bridge now tells the integration which cameras are on battery, so mains cameras keep HLS.
+  - **Clearer logs**: a failed stream says why, startup reports whether the WebRTC library loads, and a
+    "Last event" cover in a format the SDK can't decode yet is logged instead of looking like no reply.
+- No new options. Pair it with **integration 0.6.0**.
+
+## 0.6.0
+
+- Built on **bridge 0.5.0** (still eufy-sdk 0.4.0). For the add-on, this means:
+  - **No more duplicate bridges in Home Assistant.** The bridge now has a stable ID, so with integration
+    0.5.1 a bridge you already added (e.g. by IP) is no longer offered again when it's discovered at
+    `172.30.32.1`. If you already have two eufy-sdk entries for this add-on, delete the newer one.
+  - **"Last event" images on a HomeBase 2** come from the HomeBase again (a new query the HomeBase 2
+    answers). Covers stored in the newer `v2_` format also need a later SDK release.
+  - **"Refresh Last Event"** no longer times out; it answers within 10 s and finishes in the background.
+  - **The newest "Last event" image wins**: an older push thumbnail no longer replaces a newer HomeBase
+    cover on local-storage accounts.
+  - **Mains-powered cameras keep streaming** to a continuous viewer (an NVR, say) instead of being
+    idle-suspended after 5 minutes. The idle auto-off now applies to battery cameras only.
+- No new options. Pair it with **integration 0.5.1**.
+
+## 0.5.0
+
+- Built on **bridge 0.4.0**, which uses **eufy-sdk 0.4.0**. For the add-on, this means:
+  - **Property changes reach Home Assistant as they happen**, instead of waiting for the next poll.
+  - **Station face roster**: faces known to a HomeBase are available to the integration.
+  - **Latest recording as a clip**: a HomeBase 2 camera's most recent recording can be served as an mp4.
+  - **More readable values and settings**: the device manifest carries decoded readings, and write-only
+    settings are exposed so Home Assistant can show them.
+  - The "Last event" image waits for the detection's own thumbnail instead of showing the previous one.
+  - Steadier streams: idle streams are closed reliably, one stream client is shared per camera while it
+    logs in, and a stream ends cleanly with its feed.
+  - The watchdog no longer restarts the poll because a device was quiet.
+- New optional options (empty keeps the bridge default):
+  - **`snapshot_live`** (`auto` / `on` / `off`): whether a camera tile's still wakes the camera. `auto` wakes
+    only mains cameras; battery cameras answer from their last thumbnail or frame.
+  - **`stream_fail_backoff_ms`**: after a stream fails to open, how long to wait before waking that camera
+    again (default 30 s, doubling per failure up to 5 min; `0` disables).
+  - **`clip_settle_ms`**: how long the HomeBase 2 clip waits for the station to finish writing the
+    recording (default 30 s).
+- Pair it with **integration 0.4.0**.
+
 ## 0.4.0
 
 - Built on **bridge 0.3.0**, which uses **eufy-sdk 0.2.0**. For the add-on, this means:
